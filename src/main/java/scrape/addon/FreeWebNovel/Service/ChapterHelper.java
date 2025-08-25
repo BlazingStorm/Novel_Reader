@@ -34,11 +34,11 @@ public class ChapterHelper extends BaseNovelService {
         String title = document.select("#article > h4").text();
         Elements paragraphs = document.select("#article > p");
 
-        StringBuilder contentBuilder = new StringBuilder();
+        List<String> contentBuilder = new ArrayList<>();
         for (Element p : paragraphs) {
-            contentBuilder.append(p.text()).append("\n\n");
+            contentBuilder.add(p.text());
         }
 
-        return new ChapterContent(title, contentBuilder.toString());
+        return new ChapterContent(title, contentBuilder);
     }
 }

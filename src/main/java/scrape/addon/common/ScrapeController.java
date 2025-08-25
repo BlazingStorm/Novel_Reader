@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/scrape    ")
+@RequestMapping("/scrape")
 public class ScrapeController {
 
     private final Map<String, NovelSource> sources = new HashMap<>();

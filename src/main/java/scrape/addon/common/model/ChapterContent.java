@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @RequiredArgsConstructor @Getter @Setter
 public class ChapterContent {
     private String title;
-    private String content;
+    private List<String> content;
 
-    public ChapterContent(String title, String string) {
+    public ChapterContent(String title, List<String> string) {
         this.title = title;
         this.content = string;
     }
@@ -22,11 +24,11 @@ public class ChapterContent {
         this.title = title;
     }
 
-    public String getContent() {
+    public List<String> getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(List<String> content) {
         this.content = content;
     }
 }

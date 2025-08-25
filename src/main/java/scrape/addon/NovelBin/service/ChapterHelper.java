@@ -39,21 +39,21 @@ public class ChapterHelper extends BaseNovelService {
         String title = (titleElement != null) ? titleElement.text() : "Untitled";
 
         Element contentElement = document.selectFirst("#chr-content");
-        StringBuilder contentBuilder = new StringBuilder();
+        List<String>contentBuilder = new ArrayList<>();
 
         if (contentElement != null) {
             Elements paragraphs = contentElement.select("p");
             if (!paragraphs.isEmpty()) {
                 for (Element p : paragraphs) {
-                    contentBuilder.append(p.text()).append("\n\n");
+                    contentBuilder.add(p.text());
                 }
             } else {
-                contentBuilder.append(contentElement.text());
+                contentBuilder.add(contentElement.text());
             }
         } else {
-            contentBuilder.append("No content found.");
+            contentBuilder.add("No content found.");
         }
 
-        return new ChapterContent(title, contentBuilder.toString());
+        return new ChapterContent(title, contentBuilder);
     }
 }

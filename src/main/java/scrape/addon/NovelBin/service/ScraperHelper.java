@@ -28,7 +28,6 @@ public class ScraperHelper extends BaseNovelService {
 
             String href = "http://localhost:8080/scrape/chapters?source=NovelBin&path=" + normalizeUrl(rawHref);
 
-
             Element imgEl = row.selectFirst(".col-xs-3 img");
             String img = "";
             if (imgEl != null) {

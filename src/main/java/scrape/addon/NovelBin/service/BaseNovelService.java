@@ -25,7 +25,7 @@ public abstract class BaseNovelService {
 
     protected String resolveImageUrl(String imgUrl) {
         if (imgUrl == null || imgUrl.isBlank()) return "";
-        // Prepend baseUrl if it’s a relative path
+
         if (!imgUrl.startsWith("http")) {
             if (!imgUrl.startsWith("/")) imgUrl = "/" + imgUrl;
             imgUrl = baseUrl + imgUrl;

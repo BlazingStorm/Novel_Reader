@@ -2,6 +2,7 @@ package scrape.addon.common;
 
 import org.springframework.web.bind.annotation.*;
 import scrape.addon.common.model.Book;
+import scrape.addon.common.model.BookDetails;
 import scrape.addon.common.model.Chapter;
 import scrape.addon.common.model.ChapterContent;
 
@@ -31,10 +32,10 @@ public class ScrapeController {
     }
 
     @GetMapping("/chapters")
-    public List<Chapter> getChapters(@RequestParam String source, @RequestParam String path) throws Exception {
+    public BookDetails getbookDetails(@RequestParam String source, @RequestParam String path) throws Exception {
         NovelSource novelSource = sources.get(source.toLowerCase());
         if (novelSource == null) throw new IllegalArgumentException("Unknown source: " + source);
-        return novelSource.getChapters(path);
+        return novelSource.getBookDetails(path);
     }
 
     @GetMapping("/chapter")

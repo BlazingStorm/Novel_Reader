@@ -4,6 +4,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.List;
 
 public abstract class BaseNovelService {
     protected static final String baseUrl = "https://freewebnovel.com";
@@ -23,9 +24,20 @@ public abstract class BaseNovelService {
         return baseUrl + href;
     }
 
+    protected void parseAlternativeTitles(String altText, List<String> alternativeTitles) {
+        if (altText != null && !altText.trim().isEmpty()) {
+            for (String alt : altText.split(",")) {
+                String trimmed = alt.trim();
+                if (!trimmed.isEmpty()) {
+                    alternativeTitles.add(trimmed);
+                }
+            }
+        }
+    }
+
     protected String resolveImageUrl(String imgUrl) {
         if (imgUrl == null || imgUrl.isBlank()) return "";
-        // Prepend baseUrl if it’s a relative path
+
         if (!imgUrl.startsWith("http")) {
             if (!imgUrl.startsWith("/")) imgUrl = "/" + imgUrl;
             imgUrl = baseUrl + imgUrl;

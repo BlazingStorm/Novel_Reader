@@ -9,6 +9,7 @@ public class Chapter {
     private String title;
     private String link;
 
+    public Chapter(String title) {}
     public Chapter(String chap, String link) {
         this.title = chap;
         this.link = link;

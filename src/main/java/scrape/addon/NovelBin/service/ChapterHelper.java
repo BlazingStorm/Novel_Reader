@@ -16,16 +16,16 @@ public class ChapterHelper extends BaseNovelService {
         String url = path.startsWith("http") ? path : baseUrl + path;
         Document document = fetchDocument(url);
 
-        Elements elements = document.select("ul.list-chapter li a");
         List<Chapter> chapters = new ArrayList<>();
 
-        for (Element element : elements) {
-            String chapTitle = element.text();
-            String rawHref = element.attr("href");
 
+        Elements chapterEls = document.select(".list-chapter a");
+        for (Element ch : chapterEls) {
+            String chapTitle = ch.text().trim();
+            String rawHref = ch.attr("href");
             if (chapTitle.isBlank() || rawHref.isBlank()) continue;
 
-            String href = "http://localhost:8080/scrape/chapter?source=NovelBin&path=" + normalizeUrl(rawHref);
+            String href = normalizeUrl(rawHref);
             chapters.add(new Chapter(chapTitle, href));
         }
         return chapters;
@@ -35,25 +35,14 @@ public class ChapterHelper extends BaseNovelService {
         String url = path.startsWith("http") ? path : baseUrl + path;
         Document document = fetchDocument(url);
 
-        Element titleElement = document.selectFirst("h2.chapter-title");
-        String title = (titleElement != null) ? titleElement.text() : "Untitled";
 
-        Element contentElement = document.selectFirst("#chr-content");
-        List<String>contentBuilder = new ArrayList<>();
+       String title=document.select(".chr-title").attr("title");
 
-        if (contentElement != null) {
-            Elements paragraphs = contentElement.select("p");
-            if (!paragraphs.isEmpty()) {
-                for (Element p : paragraphs) {
-                    contentBuilder.add(p.text());
-                }
-            } else {
-                contentBuilder.add(contentElement.text());
-            }
-        } else {
-            contentBuilder.add("No content found.");
-        }
-
-        return new ChapterContent(title, contentBuilder);
+       Elements elements=document.select("#chr-content > p");
+       List<String>content=new ArrayList<>();
+       for (Element element : elements) {
+           content.add(element.text().trim());
+       }
+       return new ChapterContent(title, content);
     }
 }
